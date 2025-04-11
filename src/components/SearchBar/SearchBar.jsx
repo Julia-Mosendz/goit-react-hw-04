@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import css from "./SearchBar.module.css";
 
-export function SearchForm(props) {
+export function SearchBar(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
