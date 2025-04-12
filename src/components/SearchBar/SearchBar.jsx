@@ -22,7 +22,7 @@ export function SearchBar(props) {
             className={css.input}
             type="search"
             name="search"
-            placeholder="Search images and photos"
+            placeholder="Search images and photos..."
           />
           <button className={css.btn}>Search</button>
         </form>

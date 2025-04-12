@@ -2,17 +2,20 @@ import Modal from "react-modal";
 import { IoCloseOutline } from "react-icons/io5";
 import css from "./ImageModal.module.css";
 
+Modal.setAppElement("#root");
+
 const customStyles = {
   content: {
-    borderRadius: "16px",
     position: "absolute",
-    width: "fit-content",
     top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    maxWidth: "540px",
+    padding: "12px",
+    borderRadius: "16px",
   },
   overlay: { backgroundColor: "rgba(0 0 0 / 50%)" },
 };
@@ -28,7 +31,7 @@ export function ImageModal(props) {
       contentLabel="image modal"
     >
       <div className={css.wrapper}>
-        <p className={css.caption}>Modal title</p>
+        <p className={css.caption}>{props.selectedImage.user.first_name}</p>
         <button
           className={css.btn}
           type="button"
@@ -37,7 +40,7 @@ export function ImageModal(props) {
           <IoCloseOutline size={32} />
         </button>
       </div>
-      <img src={props.selectedImage.urls.regular} alt="" />
+      <img className={css.img} src={props.selectedImage.urls.regular} alt="" />
     </Modal>
   );
 }

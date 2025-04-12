@@ -1,5 +1,6 @@
 .btn {
+    display: block;
+    margin: 24px auto 0;
     color: #FFFFFF;
-background-color: #607D8B;
-margin-top: 24px;
+    background-color: #607D8B;
 }

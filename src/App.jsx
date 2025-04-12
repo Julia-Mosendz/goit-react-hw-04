@@ -8,9 +8,6 @@ import { Loader } from "./components/Loader/Loader";
 import { ErrorMessage } from "./components/ErrorMessage/ErrorMessage";
 import { LoadMoreBtn } from "./components/LoadMoreBtn/LoadMoreBtn";
 import { ImageModal } from "./components/ImageModal/ImageModal";
-import Modal from "react-modal";
-
-Modal.setAppElement("#root");
 
 function App() {
   const [images, setImages] = useState([]);
@@ -84,8 +81,6 @@ function App() {
         <ImageGallery images={images} handleModalOpen={handleModalOpen} />
       )}
       {error && <ErrorMessage />}
-      <Loader loading={loading} />
-      <Toaster />
       {page < totalPages && !loading && (
         <LoadMoreBtn handleLoadMoreClick={handleLoadMoreClick} />
       )}
@@ -94,6 +89,8 @@ function App() {
         handleModalClosed={handleModalClosed}
         selectedImage={selectedImage}
       />}
+      <Loader loading={loading} />
+      <Toaster />
     </>
   );
 }
