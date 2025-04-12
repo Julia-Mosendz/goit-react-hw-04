@@ -6,7 +6,7 @@ return (
   <ul className={css.list}>
     {props.images.map((image) => {
         return (
-          <li key={image.id}>
+          <li key={image.id} onClick={() => {props.handleModalOpen(image)}}>
             <ImageCard src={image.urls} alt={image.alt_description} />
           </li>
         );

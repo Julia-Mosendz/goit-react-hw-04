@@ -1,16 +1,43 @@
-import Modal from "react-modal"
-import css from "./ImageModal.module.css"
+import Modal from "react-modal";
+import { IoCloseOutline } from "react-icons/io5";
+import css from "./ImageModal.module.css";
 
-Modal.setAppElement("#root")
+const customStyles = {
+  content: {
+    borderRadius: "16px",
+    position: "absolute",
+    width: "fit-content",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+  overlay: { backgroundColor: "rgba(0 0 0 / 50%)" },
+};
 
-export function ImageModal() {
-    return (
-      <Modal isOpen="true">
-        <button>X</button>
-        <img
-          src="https://plus.unsplash.com/premium_photo-1683121823310-121e5fe5a06d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FrZXxlbnwwfDJ8MHx8fDA%3D"
-          alt=""
-        />
-      </Modal>
-    );
+
+export function ImageModal(props) {
+  return (
+    <Modal
+      isOpen={props.isOpen}
+      onRequestClose={props.handleModalClosed}
+      style={customStyles}
+      ariaHideApp={false}
+      contentLabel="image modal"
+    >
+      <div className={css.wrapper}>
+        <p className={css.caption}>Modal title</p>
+        <button
+          className={css.btn}
+          type="button"
+          onClick={props.handleModalClosed}
+        >
+          <IoCloseOutline size={32} />
+        </button>
+      </div>
+      <img src={props.selectedImage.urls.regular} alt="" />
+    </Modal>
+  );
 }

@@ -8,6 +8,9 @@ import { Loader } from "./components/Loader/Loader";
 import { ErrorMessage } from "./components/ErrorMessage/ErrorMessage";
 import { LoadMoreBtn } from "./components/LoadMoreBtn/LoadMoreBtn";
 import { ImageModal } from "./components/ImageModal/ImageModal";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 function App() {
   const [images, setImages] = useState([]);
@@ -16,6 +19,8 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
     if (searchQuery === "") {
@@ -55,6 +60,7 @@ function App() {
     setLoading(true);
     setError(false);
   };
+
   const handleLoadMoreClick = () => {
     setLoading(true);
     setPage((prevPage) => {
@@ -62,17 +68,32 @@ function App() {
     });
   };
 
+  const handleModalOpen = (image) => {
+    setIsOpen(true);
+    setSelectedImage(image);
+  };
+
+  const handleModalClosed = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <SearchBar handleSearch={handleSearch} />
-      {images.length > 0 && <ImageGallery images={images} />}
+      {images.length > 0 && (
+        <ImageGallery images={images} handleModalOpen={handleModalOpen} />
+      )}
       {error && <ErrorMessage />}
       <Loader loading={loading} />
       <Toaster />
       {page < totalPages && !loading && (
         <LoadMoreBtn handleLoadMoreClick={handleLoadMoreClick} />
       )}
-      <ImageModal/>
+      {selectedImage && <ImageModal
+        isOpen={isOpen}
+        handleModalClosed={handleModalClosed}
+        selectedImage={selectedImage}
+      />}
     </>
   );
 }
