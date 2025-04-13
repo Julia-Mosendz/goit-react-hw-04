@@ -17,7 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     if (searchQuery === "") {
@@ -26,7 +26,6 @@ function App() {
     async function uploadImages() {
       try {
         const response = await getImages(searchQuery, page);
-        console.log(response);
         if (response.total_pages === 0) {
           throw new Error("Images are not found");
         }
@@ -81,14 +80,16 @@ function App() {
         <ImageGallery images={images} handleModalOpen={handleModalOpen} />
       )}
       {error && <ErrorMessage />}
-      {page < totalPages && !loading && (
+      {page < totalPages && !loading && images.length > 0 && (
         <LoadMoreBtn handleLoadMoreClick={handleLoadMoreClick} />
       )}
-      {selectedImage && <ImageModal
-        isOpen={isOpen}
-        handleModalClosed={handleModalClosed}
-        selectedImage={selectedImage}
-      />}
+      {selectedImage && (
+        <ImageModal
+          isOpen={isOpen}
+          handleModalClosed={handleModalClosed}
+          selectedImage={selectedImage}
+        />
+      )}
       <Loader loading={loading} />
       <Toaster />
     </>
